@@ -3,20 +3,26 @@ import ReactDOM from 'react-dom'
 
 const App = (props) => {
   const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
+  const part1 = {
+      name: 'Fundamentals of React',
+      exercises: 10
+  }
+  const part2 = {
+      name: 'Using props to pass data',
+      exercises: 7
+  }
+  const part3 = {
+      name: 'State of a component',
+      exercises: 14
+  }
 
   return (
     <div>
         <Header course={course} />
-        <Content part1 = {part1} ex1 = {exercises1}
-                 part2 = {part2} ex2 = {exercises2}
-                 part3 = {part3} ex3 = {exercises3}/>
-        <Total ex1 = {exercises1} ex2 = {exercises2} ex3 = {exercises3}/>
+        <Content part1 = {part1} 
+                 part2 = {part2} 
+                 part3 = {part3} />
+        <Total ex1 = {part1.exercises} ex2 = {part2.exercises} ex3 = {part3.exercises}/>
     </div>
   )
 }
@@ -35,9 +41,9 @@ const Content = (props) => {
     return (
         <div>
             <p>
-                <Part part = {props.part1} ex = {props.ex1}/>
-                <Part part = {props.part2} ex = {props.ex2}/>
-                <Part part = {props.part3} ex = {props.ex3}/>
+                <Part part = {props.part1}/>
+                <Part part = {props.part2}/>
+                <Part part = {props.part3}/>
             </p>
         </div>
     )
@@ -47,7 +53,7 @@ const Part = (props) => {
     return (
         <div>
             <p>
-                {props.part} {props.ex}
+                {props.part.name} {props.part.exercises}
             </p>
         </div>
     )
