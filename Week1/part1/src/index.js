@@ -18,7 +18,7 @@ const App = () => {
   <div>
     <h1>Greetings</h1>
     <Hello name = "George" age = {26 + 10}/>
-    <Hello name = "Daisy" age ={age}/>
+    <Hello name = {name} age ={age}/>
   </div>
   )
 }
