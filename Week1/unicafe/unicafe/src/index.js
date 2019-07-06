@@ -49,14 +49,13 @@ const Statistics = (props) => {
     </div>
   )
 }
-//To the grader: Sorry!  I had already been using the Display component located
-//further below.  I'm aware this Statistic implementation is practically pointless
-//since it is functionally identical to the Display component.
+
 const Statistic = ({text, value}) => {
   return (
-    <div>
-      <Display disp = {text} msg = {value}/>
-    </div>
+    <tr>
+      <td> {text} </td>
+      <td> {value} </td>
+    </tr>
   )
 }
 
