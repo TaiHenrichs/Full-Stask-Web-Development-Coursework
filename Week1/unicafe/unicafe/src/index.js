@@ -11,6 +11,9 @@ const App = () => {
   const g = 'Good'
   const n = 'Neutral'
   const b = 'Bad'
+
+  let total = sum(good, neutral, bad)
+  let avg = sum(good, bad * -1) / total
   
   return (
     <div>
@@ -18,15 +21,25 @@ const App = () => {
       <Button onClick = {() => setGood(good + 1)} text = {g}/>
       <Button onClick = {() => setNeutral(neutral + 1)} text = {n}/>
       <Button onClick = {() => setBad(bad + 1)} text = {b}/>
+
       <Display disp = 'Statistics'/>
       <Display disp = {g} msg = {good}/>
       <Display disp = {n} msg = {neutral}/>
       <Display disp = {b} msg = {bad}/>
+      <Display disp = "Total Reviews" msg = {total}/>
+      <Display disp = "Average" msg = {avg}/>
+      <Display disp = "Percent Positive" msg = {good / total}/>
     </div>
   )
 }
-//Event Handler Components
 
+const sum = (...vals) => {
+  let sum = 0
+  for (let i = 0; i < vals.length; ++i) {
+    sum += vals[i]
+  }
+  return sum
+}
 
 //Rendering Components
 const Button = ({onClick, text}) => {
