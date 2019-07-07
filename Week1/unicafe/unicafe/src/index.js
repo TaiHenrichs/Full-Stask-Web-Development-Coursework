@@ -33,7 +33,7 @@ const Statistics = (props) => {
     return (
       <div>
         <Display disp = 'Statistics'/>
-        <Display disp = 'No Feedback Given'/>
+        <p> 'No Feedback Given' </p> 
       </div>
     )
   }
@@ -77,9 +77,9 @@ const Button = ({onClick, text}) => {
 
 const Display = (props) => {
     return (
-        <p>
+        <h1>
             {props.disp} {props.msg}
-        </p>
+        </h1>
     )
 }
 

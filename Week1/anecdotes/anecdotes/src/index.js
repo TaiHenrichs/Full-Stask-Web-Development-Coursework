@@ -18,12 +18,26 @@ const App = (props) => {
 
   return (
     <div>
+      <h1>Anecdote of the Day</h1>
       <Button onClick = {setNewAnec} text = 'Get New Anecdote'/>
       <Button onClick = {recordVote} text = 'Vote'/>
       <Display disp = "Current Anecdote: " msg = {anecdotes[selected]}/>
       <Display disp = "Votes for this Anecdote: " msg = {votes[selected]}/>
+      <h1>Anecdote with the most votes</h1>
+      <Display disp = {"\"" + anecdotes[anecMostVotes(votes)] + "\""} 
+                msg = {"has " + votes[anecMostVotes(votes)] + " votes."}/>
     </div>
   )
+}
+
+const anecMostVotes = (votes) => {
+  let mostVotesIndex = 0
+  for (let i = 1; i < anecdotes.length; ++i) {
+    if (votes[i] > votes[mostVotesIndex]) {
+      mostVotesIndex = i
+    }
+  }
+  return mostVotesIndex
 }
 
 //Generates random number in the range 0 to anecdotes.length minus 1
