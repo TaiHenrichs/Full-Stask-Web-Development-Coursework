@@ -2,20 +2,33 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 const App = (props) => {
-  const [selected, setSelected] = useState(0)
+  const [selected, setSelected] = useState(anecRand())
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0))
 
   const setNewAnec = () => {
-    //Generates random number in the range 0 to anecdotes.length - 1
-    const rand = Math.floor(Math.random() * anecdotes.length)
+    const rand = anecRand()
     setSelected(rand)
+  }
+
+  const recordVote = () => {
+    let copy = [...votes]
+    copy[selected] += 1
+    setVotes(copy)
   }
 
   return (
     <div>
       <Button onClick = {setNewAnec} text = 'Get New Anecdote'/>
+      <Button onClick = {recordVote} text = 'Vote'/>
       <Display disp = "Current Anecdote: " msg = {anecdotes[selected]}/>
+      <Display disp = "Votes for this Anecdote: " msg = {votes[selected]}/>
     </div>
   )
+}
+
+//Generates random number in the range 0 to anecdotes.length minus 1
+const anecRand = () => {
+  return Math.floor(Math.random() * anecdotes.length)
 }
 
 const anecdotes = [
