@@ -1,33 +1,36 @@
 import React, { useState } from 'react'
 
 const App = () => {
-  //I read the note that said we could use names for 
-  //the key attribute; however, that would fail 
-  //if people in the phonebook shared names
-  const [ currentId, setNewId ] = useState(1)
   const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas', id: currentId }
+    { name: 'Arto Hellas' }
   ]) 
   const [ newName, setNewName ] = useState('')
 
   const handleNewInput = (event) => {
-    console.log(event.target.value)
     setNewName(event.target.value)
   }
 
   const handleSubmission = (event) => {
-    setNewId(currentId + 1)
     event.preventDefault()
-    const nameObj = {
-      name: newName,
-      id: currentId
+    
+    if (isNew(newName)) {
+      const nameObj = {
+        name: newName
+      }
+      setPersons(persons.concat(nameObj))
+    } else {
+      window.alert(`${newName} is already in the phonebook`)
     }
-    setPersons(persons.concat(nameObj))
-    setNewName("")
+    setNewName('')
   }
 
+  const isNew = (name) => !persons.some(person => person.name === name)
+
   const displayedItems = () => 
-    persons.map(person => <p>{person.name}</p>)
+    persons.map(person => 
+    <p key ={person.name}> 
+      {person.name}
+    </p>)
 
   return (
     <div>
@@ -39,11 +42,11 @@ const App = () => {
         <div>
           <button type="submit">add</button>
         </div>
+      </form>
+      <h2>Numbers</h2>
         <div>
           {displayedItems()}
         </div>
-      </form>
-      <h2>Numbers</h2>
     </div>
   )
 }
