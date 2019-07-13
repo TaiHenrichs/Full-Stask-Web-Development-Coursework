@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DisplayTable from './DisplayTable'
 import FilterForm from './FilterForm'
 import Entry from './Entry'
+import axios from 'axios'
 
 const App = () => {
   const [ persons, setPersons] = useState([
@@ -30,6 +31,15 @@ const App = () => {
     setNewName('')
     setNewNumber('')
   }
+
+  useEffect(() => {
+    console.log('effect')
+    axios
+        .get('http://localhost:3001/notes').then(response => {
+          console.log('promise fulfilled')
+          setPersons(response.data)
+        })
+  }, [])
 
   const FilteredEntries = () => 
       persons.filter(entry => 
