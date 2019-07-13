@@ -13,7 +13,7 @@ const FullInfo = ({country}) => {
                     {country.languages.map(
                         language => language.name
                     )}/>
-                <img src={country.flag} alt = {`The flag of ${country}`}/>
+                <img src={country.flag} alt = {`The flag of ${country.name}`}/>
                 <Weather capital = {country.capital}/>
         </div>
     )
