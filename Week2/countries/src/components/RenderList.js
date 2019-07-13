@@ -4,7 +4,7 @@ const RenderList = ({list}) => {
     if (Array.isArray(list)) {
         return(
             list.map(item =>
-                <li>{item}</li>)
+                <li key = {"List" + item}>{item}</li>)
         )
     }
     console.log('You need an array!')

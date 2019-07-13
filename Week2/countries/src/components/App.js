@@ -20,10 +20,8 @@ function App() {
   const handleNewCountry = (event) => {
     setNewCountry(event.target.value)
     console.log(newCountry)
-    console.log(countries)
   }
-    
-
+  
   return (
     <div>
       <Input filterName = 'Find Countries: '

@@ -13,7 +13,7 @@ const FilteredCountries = ({countries, search}) => {
                     <Country country = {country}
                         singleCountry = {filtered.length === 1 
                                         ? true : false}
-                        key = {country.cioc}
+                        key = {"Country" + country.name}
                     />
                 )
             )
