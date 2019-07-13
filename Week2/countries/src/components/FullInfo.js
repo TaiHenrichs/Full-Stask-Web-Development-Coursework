@@ -1,5 +1,6 @@
 import React from 'react'
 import RenderList from './RenderList'
+import Weather from './Weather'
 
 const FullInfo = ({country}) => {
     return (
@@ -13,6 +14,7 @@ const FullInfo = ({country}) => {
                         language => language.name
                     )}/>
                 <img src={country.flag} alt = {`The flag of ${country}`}/>
+                <Weather capital = {country.capital}/>
         </div>
     )
 }

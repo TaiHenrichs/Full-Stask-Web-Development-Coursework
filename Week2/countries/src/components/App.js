@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     console.log('effect')
     axios
-        .get('https://restcountries.eu/rest/v2/all?fields=name;population;languages;flag;cioc;capital')
+        .get('https://restcountries.eu/rest/v2/all?fields=name;population;languages;flag;cioc;capital;alpha3Code')
         .then(response => {
           console.log('promise fulfilled')
           setCountries(response.data)
