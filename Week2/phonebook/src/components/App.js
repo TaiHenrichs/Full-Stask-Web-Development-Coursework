@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react'
 import DisplayTable from './DisplayTable'
 import FilterForm from './FilterForm'
 import Entry from './Entry'
-import axios from 'axios'
+import ServerCommunication from './ServerCommunication'
 
 const App = () => {
-  const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas', num: '999-999-9999'}
-  ]) 
+  //Initial value is unused - it ensures that persons is an array with objects formed 
+  //in the manner used by the remainder of the application, avoiding various errors
+  const [ persons, setPersons] = useState([{
+    "name": "Arto Hellas",
+    "number": "040-123456"
+  }]) 
+
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber] = useState('')
   const [ newFilter, setNewFilter] = useState('')
@@ -22,9 +26,13 @@ const App = () => {
     if (isNew(newName)) {
       const nameObj = {
         name: newName,
-        num: newNumber
+        number: newNumber
       }
-      setPersons(persons.concat(nameObj))
+      ServerCommunication
+        .create(nameObj)
+          .then(returnedObj => 
+            setPersons(persons.concat(returnedObj)))
+
     } else {
       window.alert(`${newName} is already in the phonebook`)
     }
@@ -34,18 +42,18 @@ const App = () => {
 
   useEffect(() => {
     console.log('effect')
-    axios
-        .get('http://localhost:3001/notes').then(response => {
-          console.log('promise fulfilled')
-          setPersons(response.data)
-        })
+    ServerCommunication
+      .getAll()
+        .then(initPhonebook => setPersons(initPhonebook))
   }, [])
 
   const FilteredEntries = () => 
       persons.filter(entry => 
-          entry.name.toLowerCase().includes(
-            newFilter.toLowerCase())).map(
-              entry => <Entry entry = {entry}/>)
+        entry.name.toLowerCase().includes(
+          newFilter.toLowerCase())).map(
+            entry => <Entry entry = {entry}/>)
+
+      
   
 
   const handleNewNumber = (event) => 
