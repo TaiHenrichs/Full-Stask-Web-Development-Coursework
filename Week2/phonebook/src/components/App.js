@@ -28,23 +28,33 @@ const App = () => {
 
   const handleSubmission = (event) => {
     event.preventDefault()
+
+    const nameObj = {
+      name: newName,
+      number: newNumber
+    }
     
     if (isNew(newName)) {
-      const nameObj = {
-        name: newName,
-        number: newNumber
-      }
       ServerCommunication
         .create(nameObj)
           .then(returnedObj => 
             setPersons(persons.concat(returnedObj)))
 
-    } else {
-      window.alert(`${newName} is already in the phonebook`)
+    } else if (window.confirm(
+      `${newName} is already in the phonebook, replace the old number with a new one?`)) {
+
+        const entryId = getId(newName)
+      
+      ServerCommunication.update(entryId, nameObj).then(returnedObj =>
+        setPersons(persons.map(person => person.id !== entryId ? person : returnedObj.data))
+      )
     }
     setNewName('')
     setNewNumber('')
   }
+
+  const getId = (name) =>
+    persons.find(person => person.name === name).id
 
   useEffect(() => {
     console.log('effect')
