@@ -9,7 +9,8 @@ const App = () => {
   //in the manner used by the remainder of the application, avoiding various errors
   const [ persons, setPersons] = useState([{
     "name": "Arto Hellas",
-    "number": "040-123456"
+    "number": "040-123456",
+    "id": "-1"
   }]) 
 
   const [ newName, setNewName ] = useState('')
@@ -18,7 +19,12 @@ const App = () => {
 
   const handleNewName = (event) => 
     setNewName(event.target.value)
-  
+
+  const localUpdate = (entryId) => {
+    console.log('Id being deleted', entryId)
+    setPersons(persons.filter(i => i.id !== entryId))
+  }
+    
 
   const handleSubmission = (event) => {
     event.preventDefault()
@@ -51,7 +57,7 @@ const App = () => {
       persons.filter(entry => 
         entry.name.toLowerCase().includes(
           newFilter.toLowerCase())).map(
-            entry => <Entry entry = {entry}/>)
+            entry => <Entry entry = {entry} localUpdate = {localUpdate}/>)
 
       
   

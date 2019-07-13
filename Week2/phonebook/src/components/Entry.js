@@ -1,13 +1,18 @@
 import React from 'react'
+import DeleteButton from './DeleteButton'
 
-const Entry = ({entry}) => 
-    <tr key = {entry.name + entry.number}> 
-        <td key = {entry.name}>
+const Entry = ({entry, localUpdate}) => 
+    <tr key = {entry.id}> 
+        <td key = {entry.id}>
             {entry.name}
         </td>
-        <td key = {entry.number}>
+        <td key = {entry.id}>
             {entry.number}
         </td>
+        <td>
+            <DeleteButton entry = {entry} localUpdate = {localUpdate}/>
+        </td>
     </tr>
-
+   
+    
 export default Entry
