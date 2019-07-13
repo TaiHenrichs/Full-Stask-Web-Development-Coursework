@@ -32,7 +32,7 @@ const Weather = ({capital}) => {
             <h3>Temperature:</h3> 
             {weather.main.temp - 273} Celsius
             <h3>Humidity: </h3>
-            {weather.main.humidity}
+            {weather.main.humidity} Percent
             <h3>Wind: </h3> {weather.wind.speed} meters/sec heading {weather.wind.deg} meteorological degrees
         </div>
     )
