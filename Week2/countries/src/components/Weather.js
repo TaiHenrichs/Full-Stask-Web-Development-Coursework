@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 const Weather = ({capital}) => {
     const [ weather, setWeather] = useState({
         main: {
-            temp: 0,
+            temp: 273,
             humidity: 0
         },
         weather: {
