@@ -8,6 +8,12 @@ const DeleteButton = ({entry, localUpdate}) => {
         if (window.confirm(`Delete ${entry.name} ?`))
               ServerCommunication.eliminateEntry(entryId)
               .then(() => localUpdate(entryId))
+              .catch(error => {
+                alert(
+                  `The phonebook entry for ${entry.name} was already deleted from the server`
+                )
+                localUpdate(entryId)
+              })
       }
 
     return(

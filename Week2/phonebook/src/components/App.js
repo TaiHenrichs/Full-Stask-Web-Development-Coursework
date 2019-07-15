@@ -22,7 +22,6 @@ const App = () => {
     setNewName(event.target.value)
 
   const localUpdate = (entryId) => {
-    console.log('Id being deleted', entryId)
     setPersons(persons.filter(i => i.id !== entryId))
   }
 
@@ -65,6 +64,12 @@ const App = () => {
       
       ServerCommunication.update(entryId, nameObj).then(returnedObj =>
         setPersons(persons.map(person => person.id !== entryId ? person : returnedObj.data))
+        .catch(error => {
+          alert(
+            `The phonebook entry for ${newName} was already deleted from the server`
+          )
+          setPersons(persons.filter(person => person.id !== entryId))
+        })
       )
       messageBegin = 'Updated the phone number of'
     }
