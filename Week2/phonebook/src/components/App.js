@@ -16,6 +16,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber] = useState('')
   const [ newFilter, setNewFilter] = useState('')
+  const [ currentMessage, setCurrentMessage] = useState(null)
 
   const handleNewName = (event) => 
     setNewName(event.target.value)
@@ -24,6 +25,20 @@ const App = () => {
     console.log('Id being deleted', entryId)
     setPersons(persons.filter(i => i.id !== entryId))
   }
+
+  const SuccessMessage = ({message}) => {
+    if (message === null) {
+      return null
+    }
+
+    return (
+      <div className="successMessage">
+        {message}
+      </div>
+    )
+  }
+
+  
     
 
   const handleSubmission = (event) => {
@@ -33,12 +48,15 @@ const App = () => {
       name: newName,
       number: newNumber
     }
+
+    let messageBegin = ''
     
     if (isNew(newName)) {
       ServerCommunication
         .create(nameObj)
           .then(returnedObj => 
             setPersons(persons.concat(returnedObj)))
+      messageBegin = 'Added'
 
     } else if (window.confirm(
       `${newName} is already in the phonebook, replace the old number with a new one?`)) {
@@ -48,9 +66,12 @@ const App = () => {
       ServerCommunication.update(entryId, nameObj).then(returnedObj =>
         setPersons(persons.map(person => person.id !== entryId ? person : returnedObj.data))
       )
+      messageBegin = 'Updated the phone number of'
     }
+    setCurrentMessage(`${messageBegin} ${newName}`)
     setNewName('')
     setNewNumber('')
+    setTimeout(() => setCurrentMessage(null), 5000)
   }
 
   const getId = (name) =>
@@ -85,8 +106,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+        <SuccessMessage message = {currentMessage}/>
         <FilterForm handleFilterUpd = {handleFilterUpd} newFilter = {newFilter}/>
-
       <h2>Add a New Entry</h2>
       <form onSubmit = {handleSubmission}>
         <div>
