@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 
+app.use(bodyParser.json())
+
 let notes = [
     {
         id: 1,
@@ -67,7 +69,6 @@ app.post('/notes', (request, response) => {
 
   notes = notes.concat(note)
 
-  const note = request.body
   note.id = maxId + 1
 
   notes = notes.concat(note)
@@ -75,7 +76,7 @@ app.post('/notes', (request, response) => {
   response.json(note)
 })
 
-const PORT = 3001
+const PORT = 3002
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
